@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OfficeApp
+    xmlns="http://schemas.microsoft.com/office/appforoffice/1.1"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0"
+    xsi:type="MailApp">
+
+  <!-- ЗАМЕНИТЕ на свой собственный GUID, если будете делать несколько версий/копий -->
+  <Id>89a4fe87-26e6-4851-aae6-df63c2805e5f</Id>
+  <Version>1.0.0.0</Version>
+  <ProviderName>Smadar</ProviderName>
+  <DefaultLocale>ru-RU</DefaultLocale>
+  <DisplayName DefaultValue="SendToERP" />
+  <Description DefaultValue="Кнопки отправки писем и вложений в ERP (макет интерфейса)" />
+
+  <!-- ЗАМЕНИТЕ https://YOUR-DOMAIN на адрес, где вы реально разместите файлы этого add-in -->
+  <IconUrl DefaultValue="https://YOUR-DOMAIN/assets/icon-erp-32.png" />
+  <HighResIconUrl DefaultValue="https://YOUR-DOMAIN/assets/icon-erp-80.png" />
+  <SupportUrl DefaultValue="https://YOUR-DOMAIN" />
+
+  <AppDomains>
+    <AppDomain>https://YOUR-DOMAIN</AppDomain>
+  </AppDomains>
+
+  <Hosts>
+    <Host Name="Mailbox" />
+  </Hosts>
+
+  <Requirements>
+    <Sets>
+      <Set Name="Mailbox" MinVersion="1.5" />
+    </Sets>
+  </Requirements>
+
+  <!-- Запасной вариант для очень старых клиентов без поддержки кнопок-команд -->
+  <FormSettings>
+    <Form xsi:type="ItemRead">
+      <DesktopSettings>
+        <SourceLocation DefaultValue="https://YOUR-DOMAIN/fallback.html" />
+      </DesktopSettings>
+    </Form>
+  </FormSettings>
+
+  <Permissions>ReadWriteItem</Permissions>
+
+  <Rule xsi:type="RuleCollection" Mode="Or">
+    <Rule xsi:type="ItemIs" ItemType="Message" FormType="Read" />
+    <Rule xsi:type="ItemIs" ItemType="Message" FormType="Edit" />
+  </Rule>
+
+  <DisableEntityHighlighting>false</DisableEntityHighlighting>
+
+  <VersionOverrides xmlns="http://schemas.microsoft.com/office/mailappversionoverrides" xsi:type="VersionOverridesV1_0">
+    <Requirements>
+      <bt:Sets DefaultMinVersion="1.5">
+        <bt:Set Name="Mailbox" />
+      </bt:Sets>
+    </Requirements>
+
+    <Hosts>
+      <Host xsi:type="MailHost">
+        <DesktopFormFactor>
+
+          <FunctionFile resid="Commands.Url" />
+
+          <!-- Группа кнопок на ленте, когда письмо ОТКРЫТО ДЛЯ ЧТЕНИЯ -->
+          <ExtensionPoint xsi:type="MessageReadCommandSurface">
+            <OfficeTab id="TabDefault">
+              <Group id="SendToErpGroup.Read">
+                <Label resid="GroupLabel" />
+                <Icon>
+                  <bt:Image size="16" resid="Icon.Group.16" />
+                  <bt:Image size="32" resid="Icon.Group.32" />
+                  <bt:Image size="80" resid="Icon.Group.80" />
+                </Icon>
+
+                <Control xsi:type="Button" id="BtnSendToErp.Read">
+                  <Label resid="Btn1.Label" />
+                  <Supertip>
+                    <Title resid="Btn1.Label" />
+                    <Description resid="Btn1.Tooltip" />
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="Icon.Btn1.16" />
+                    <bt:Image size="32" resid="Icon.Btn1.32" />
+                    <bt:Image size="80" resid="Icon.Btn1.80" />
+                  </Icon>
+                  <Action xsi:type="ExecuteFunction">
+                    <FunctionName>onSendToErp</FunctionName>
+                  </Action>
+                </Control>
+
+                <Control xsi:type="Button" id="BtnSendMessage.Read">
+                  <Label resid="Btn2.Label" />
+                  <Supertip>
+                    <Title resid="Btn2.Label" />
+                    <Description resid="Btn2.Tooltip" />
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="Icon.Btn2.16" />
+                    <bt:Image size="32" resid="Icon.Btn2.32" />
+                    <bt:Image size="80" resid="Icon.Btn2.80" />
+                  </Icon>
+                  <Action xsi:type="ExecuteFunction">
+                    <FunctionName>onSendMessage</FunctionName>
+                  </Action>
+                </Control>
+
+                <Control xsi:type="Button" id="BtnSendAttachments.Read">
+                  <Label resid="Btn3.Label" />
+                  <Supertip>
+                    <Title resid="Btn3.Label" />
+                    <Description resid="Btn3.Tooltip" />
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="Icon.Btn3.16" />
+                    <bt:Image size="32" resid="Icon.Btn3.32" />
+                    <bt:Image size="80" resid="Icon.Btn3.80" />
+                  </Icon>
+                  <Action xsi:type="ExecuteFunction">
+                    <FunctionName>onSendAttachments</FunctionName>
+                  </Action>
+                </Control>
+
+                <Control xsi:type="Button" id="BtnSendAllAttachments.Read">
+                  <Label resid="Btn4.Label" />
+                  <Supertip>
+                    <Title resid="Btn4.Label" />
+                    <Description resid="Btn4.Tooltip" />
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="Icon.Btn4.16" />
+                    <bt:Image size="32" resid="Icon.Btn4.32" />
+                    <bt:Image size="80" resid="Icon.Btn4.80" />
+                  </Icon>
+                  <Action xsi:type="ExecuteFunction">
+                    <FunctionName>onSendAllAttachments</FunctionName>
+                  </Action>
+                </Control>
+
+              </Group>
+            </OfficeTab>
+          </ExtensionPoint>
+
+          <!-- Та же группа кнопок, когда письмо СОЗДАЁТСЯ/РЕДАКТИРУЕТСЯ -->
+          <ExtensionPoint xsi:type="MessageComposeCommandSurface">
+            <OfficeTab id="TabDefault">
+              <Group id="SendToErpGroup.Compose">
+                <Label resid="GroupLabel" />
+                <Icon>
+                  <bt:Image size="16" resid="Icon.Group.16" />
+                  <bt:Image size="32" resid="Icon.Group.32" />
+                  <bt:Image size="80" resid="Icon.Group.80" />
+                </Icon>
+
+                <Control xsi:type="Button" id="BtnSendToErp.Compose">
+                  <Label resid="Btn1.Label" />
+                  <Supertip>
+                    <Title resid="Btn1.Label" />
+                    <Description resid="Btn1.Tooltip" />
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="Icon.Btn1.16" />
+                    <bt:Image size="32" resid="Icon.Btn1.32" />
+                    <bt:Image size="80" resid="Icon.Btn1.80" />
+                  </Icon>
+                  <Action xsi:type="ExecuteFunction">
+                    <FunctionName>onSendToErp</FunctionName>
+                  </Action>
+                </Control>
+
+                <Control xsi:type="Button" id="BtnSendMessage.Compose">
+                  <Label resid="Btn2.Label" />
+                  <Supertip>
+                    <Title resid="Btn2.Label" />
+                    <Description resid="Btn2.Tooltip" />
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="Icon.Btn2.16" />
+                    <bt:Image size="32" resid="Icon.Btn2.32" />
+                    <bt:Image size="80" resid="Icon.Btn2.80" />
+                  </Icon>
+                  <Action xsi:type="ExecuteFunction">
+                    <FunctionName>onSendMessage</FunctionName>
+                  </Action>
+                </Control>
+
+                <Control xsi:type="Button" id="BtnSendAttachments.Compose">
+                  <Label resid="Btn3.Label" />
+                  <Supertip>
+                    <Title resid="Btn3.Label" />
+                    <Description resid="Btn3.Tooltip" />
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="Icon.Btn3.16" />
+                    <bt:Image size="32" resid="Icon.Btn3.32" />
+                    <bt:Image size="80" resid="Icon.Btn3.80" />
+                  </Icon>
+                  <Action xsi:type="ExecuteFunction">
+                    <FunctionName>onSendAttachments</FunctionName>
+                  </Action>
+                </Control>
+
+                <Control xsi:type="Button" id="BtnSendAllAttachments.Compose">
+                  <Label resid="Btn4.Label" />
+                  <Supertip>
+                    <Title resid="Btn4.Label" />
+                    <Description resid="Btn4.Tooltip" />
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="Icon.Btn4.16" />
+                    <bt:Image size="32" resid="Icon.Btn4.32" />
+                    <bt:Image size="80" resid="Icon.Btn4.80" />
+                  </Icon>
+                  <Action xsi:type="ExecuteFunction">
+                    <FunctionName>onSendAllAttachments</FunctionName>
+                  </Action>
+                </Control>
+
+              </Group>
+            </OfficeTab>
+          </ExtensionPoint>
+
+        </DesktopFormFactor>
+      </Host>
+    </Hosts>
+
+    <Resources>
+      <bt:Images>
+        <bt:Image id="Icon.Group.16" DefaultValue="https://YOUR-DOMAIN/assets/icon-erp-16.png" />
+        <bt:Image id="Icon.Group.32" DefaultValue="https://YOUR-DOMAIN/assets/icon-erp-32.png" />
+        <bt:Image id="Icon.Group.80" DefaultValue="https://YOUR-DOMAIN/assets/icon-erp-80.png" />
+
+        <bt:Image id="Icon.Btn1.16" DefaultValue="https://YOUR-DOMAIN/assets/icon-erp-16.png" />
+        <bt:Image id="Icon.Btn1.32" DefaultValue="https://YOUR-DOMAIN/assets/icon-erp-32.png" />
+        <bt:Image id="Icon.Btn1.80" DefaultValue="https://YOUR-DOMAIN/assets/icon-erp-80.png" />
+
+        <bt:Image id="Icon.Btn2.16" DefaultValue="https://YOUR-DOMAIN/assets/icon-message-16.png" />
+        <bt:Image id="Icon.Btn2.32" DefaultValue="https://YOUR-DOMAIN/assets/icon-message-32.png" />
+        <bt:Image id="Icon.Btn2.80" DefaultValue="https://YOUR-DOMAIN/assets/icon-message-80.png" />
+
+        <bt:Image id="Icon.Btn3.16" DefaultValue="https://YOUR-DOMAIN/assets/icon-attachment-16.png" />
+        <bt:Image id="Icon.Btn3.32" DefaultValue="https://YOUR-DOMAIN/assets/icon-attachment-32.png" />
+        <bt:Image id="Icon.Btn3.80" DefaultValue="https://YOUR-DOMAIN/assets/icon-attachment-80.png" />
+
+        <bt:Image id="Icon.Btn4.16" DefaultValue="https://YOUR-DOMAIN/assets/icon-all-attachments-16.png" />
+        <bt:Image id="Icon.Btn4.32" DefaultValue="https://YOUR-DOMAIN/assets/icon-all-attachments-32.png" />
+        <bt:Image id="Icon.Btn4.80" DefaultValue="https://YOUR-DOMAIN/assets/icon-all-attachments-80.png" />
+      </bt:Images>
+
+      <bt:Urls>
+        <bt:Url id="Commands.Url" DefaultValue="https://YOUR-DOMAIN/commands.html" />
+      </bt:Urls>
+
+      <bt:ShortStrings>
+        <bt:String id="GroupLabel" DefaultValue="SendToERP (Smadar)" />
+        <bt:String id="Btn1.Label" DefaultValue="Send To ERP" />
+        <bt:String id="Btn2.Label" DefaultValue="Send2ERP (Message)" />
+        <bt:String id="Btn3.Label" DefaultValue="Send2ERP (Attachments)" />
+        <bt:String id="Btn4.Label" DefaultValue="Send2ERP (All Attachments)" />
+      </bt:ShortStrings>
+
+      <bt:LongStrings>
+        <bt:String id="Btn1.Tooltip" DefaultValue="Отправить письмо в ERP (сейчас это макет интерфейса)" />
+        <bt:String id="Btn2.Tooltip" DefaultValue="Отправить текст письма в ERP (сейчас это макет интерфейса)" />
+        <bt:String id="Btn3.Tooltip" DefaultValue="Отправить вложения письма в ERP (сейчас это макет интерфейса)" />
+        <bt:String id="Btn4.Tooltip" DefaultValue="Отправить все вложения в ERP (сейчас это макет интерфейса)" />
+      </bt:LongStrings>
+    </Resources>
+  </VersionOverrides>
+</OfficeApp>
