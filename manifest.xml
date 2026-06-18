@@ -6,7 +6,7 @@
     xsi:type="MailApp">
 
   <!-- ЗАМЕНИТЕ на свой собственный GUID, если будете делать несколько версий/копий -->
-  <Id>89a4fe87-26e6-4851-aae6-df63c2805e5f</Id>
+  <Id>67ddd6ad-2824-4d7a-b54d-38975aea83c0</Id>
   <Version>1.0.0.0</Version>
   <ProviderName>Smadar</ProviderName>
   <DefaultLocale>ru-RU</DefaultLocale>
