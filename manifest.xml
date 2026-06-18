@@ -13,13 +13,13 @@
   <DisplayName DefaultValue="SendToERP" />
   <Description DefaultValue="Кнопки отправки писем и вложений в ERP (макет интерфейса)" />
 
-  <!-- ЗАМЕНИТЕ https://YOUR-DOMAIN на адрес, где вы реально разместите файлы этого add-in -->
-  <IconUrl DefaultValue="https://YOUR-DOMAIN/assets/icon-erp-32.png" />
-  <HighResIconUrl DefaultValue="https://YOUR-DOMAIN/assets/icon-erp-80.png" />
-  <SupportUrl DefaultValue="https://YOUR-DOMAIN" />
+  <!-- ЗАМЕНИТЕ https://lenagon.github.io/frontend на адрес, где вы реально разместите файлы этого add-in -->
+  <IconUrl DefaultValue="https://lenagon.github.io/frontend/assets/icon-erp-32.png" />
+  <HighResIconUrl DefaultValue="https://lenagon.github.io/frontend/assets/icon-erp-80.png" />
+  <SupportUrl DefaultValue="https://lenagon.github.io/frontend" />
 
   <AppDomains>
-    <AppDomain>https://YOUR-DOMAIN</AppDomain>
+    <AppDomain>https://lenagon.github.io/frontend</AppDomain>
   </AppDomains>
 
   <Hosts>
@@ -36,7 +36,7 @@
   <FormSettings>
     <Form xsi:type="ItemRead">
       <DesktopSettings>
-        <SourceLocation DefaultValue="https://YOUR-DOMAIN/fallback.html" />
+        <SourceLocation DefaultValue="https://lenagon.github.io/frontend/fallback.html" />
       </DesktopSettings>
     </Form>
   </FormSettings>
@@ -227,29 +227,29 @@
 
     <Resources>
       <bt:Images>
-        <bt:Image id="Icon.Group.16" DefaultValue="https://YOUR-DOMAIN/assets/icon-erp-16.png" />
-        <bt:Image id="Icon.Group.32" DefaultValue="https://YOUR-DOMAIN/assets/icon-erp-32.png" />
-        <bt:Image id="Icon.Group.80" DefaultValue="https://YOUR-DOMAIN/assets/icon-erp-80.png" />
+        <bt:Image id="Icon.Group.16" DefaultValue="https://lenagon.github.io/frontend/assets/icon-erp-16.png" />
+        <bt:Image id="Icon.Group.32" DefaultValue="https://lenagon.github.io/frontend/assets/icon-erp-32.png" />
+        <bt:Image id="Icon.Group.80" DefaultValue="https://lenagon.github.io/frontend/assets/icon-erp-80.png" />
 
-        <bt:Image id="Icon.Btn1.16" DefaultValue="https://YOUR-DOMAIN/assets/icon-erp-16.png" />
-        <bt:Image id="Icon.Btn1.32" DefaultValue="https://YOUR-DOMAIN/assets/icon-erp-32.png" />
-        <bt:Image id="Icon.Btn1.80" DefaultValue="https://YOUR-DOMAIN/assets/icon-erp-80.png" />
+        <bt:Image id="Icon.Btn1.16" DefaultValue="https://lenagon.github.io/frontend/assets/icon-erp-16.png" />
+        <bt:Image id="Icon.Btn1.32" DefaultValue="https://lenagon.github.io/frontend/assets/icon-erp-32.png" />
+        <bt:Image id="Icon.Btn1.80" DefaultValue="https://lenagon.github.io/frontend/assets/icon-erp-80.png" />
 
-        <bt:Image id="Icon.Btn2.16" DefaultValue="https://YOUR-DOMAIN/assets/icon-message-16.png" />
-        <bt:Image id="Icon.Btn2.32" DefaultValue="https://YOUR-DOMAIN/assets/icon-message-32.png" />
-        <bt:Image id="Icon.Btn2.80" DefaultValue="https://YOUR-DOMAIN/assets/icon-message-80.png" />
+        <bt:Image id="Icon.Btn2.16" DefaultValue="https://lenagon.github.io/frontend/assets/icon-message-16.png" />
+        <bt:Image id="Icon.Btn2.32" DefaultValue="https://lenagon.github.io/frontend/assets/icon-message-32.png" />
+        <bt:Image id="Icon.Btn2.80" DefaultValue="https://lenagon.github.io/frontend/assets/icon-message-80.png" />
 
-        <bt:Image id="Icon.Btn3.16" DefaultValue="https://YOUR-DOMAIN/assets/icon-attachment-16.png" />
-        <bt:Image id="Icon.Btn3.32" DefaultValue="https://YOUR-DOMAIN/assets/icon-attachment-32.png" />
-        <bt:Image id="Icon.Btn3.80" DefaultValue="https://YOUR-DOMAIN/assets/icon-attachment-80.png" />
+        <bt:Image id="Icon.Btn3.16" DefaultValue="https://lenagon.github.io/frontend/assets/icon-attachment-16.png" />
+        <bt:Image id="Icon.Btn3.32" DefaultValue="https://lenagon.github.io/frontend/assets/icon-attachment-32.png" />
+        <bt:Image id="Icon.Btn3.80" DefaultValue="https://lenagon.github.io/frontend/assets/icon-attachment-80.png" />
 
-        <bt:Image id="Icon.Btn4.16" DefaultValue="https://YOUR-DOMAIN/assets/icon-all-attachments-16.png" />
-        <bt:Image id="Icon.Btn4.32" DefaultValue="https://YOUR-DOMAIN/assets/icon-all-attachments-32.png" />
-        <bt:Image id="Icon.Btn4.80" DefaultValue="https://YOUR-DOMAIN/assets/icon-all-attachments-80.png" />
+        <bt:Image id="Icon.Btn4.16" DefaultValue="https://lenagon.github.io/frontend/assets/icon-all-attachments-16.png" />
+        <bt:Image id="Icon.Btn4.32" DefaultValue="https://lenagon.github.io/frontend/assets/icon-all-attachments-32.png" />
+        <bt:Image id="Icon.Btn4.80" DefaultValue="https://lenagon.github.io/frontend/assets/icon-all-attachments-80.png" />
       </bt:Images>
 
       <bt:Urls>
-        <bt:Url id="Commands.Url" DefaultValue="https://YOUR-DOMAIN/commands.html" />
+        <bt:Url id="Commands.Url" DefaultValue="https://lenagon.github.io/frontend/commands.html" />
       </bt:Urls>
 
       <bt:ShortStrings>
