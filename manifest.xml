@@ -19,7 +19,7 @@
   <SupportUrl DefaultValue="https://lenagon.github.io/frontend" />
 
   <AppDomains>
-    <AppDomain>https://lenagon.github.io/frontend</AppDomain>
+    <AppDomain>https://lenagon.github.io</AppDomain>
   </AppDomains>
 
   <Hosts>
