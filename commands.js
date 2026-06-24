@@ -26,8 +26,21 @@ function showPlaceholder(label) {
 }
 
 function onSendToErp(event) {
-  showPlaceholder("Send To ERP");
-  event.completed();
+
+    const item = Office.context.mailbox.item;
+
+    let subject = item.subject || "";
+
+    Office.context.mailbox.item.notificationMessages.replaceAsync(
+        "sendToErpPlaceholder",
+        {
+            type: Office.MailboxEnums.ItemNotificationMessageType.InformationalMessage,
+            message: "Subject: " + subject,
+            persistent: false
+        }
+    );
+
+    event.completed();
 }
 
 function onSendMessage(event) {

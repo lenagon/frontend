@@ -3,15 +3,17 @@
     xmlns="http://schemas.microsoft.com/office/appforoffice/1.1"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0"
-    xmlns:mailappor="http://schemas.microsoft.com/office/mailappversionoverrides/1.0"
     xsi:type="MailApp">
 
+  <!-- ЗАМЕНИТЕ на свой собственный GUID, если будете делать несколько версий/копий -->
   <Id>67ddd6ad-2824-4d7a-b54d-38975aea83c0</Id>
   <Version>1.0.0.1</Version>
   <ProviderName>SPS</ProviderName>
   <DefaultLocale>en-US</DefaultLocale>
-  <DisplayName DefaultValue="SendToERP Web" />
+  <DisplayName DefaultValue="SendToERPWeb" />
   <Description DefaultValue="Send email attachments to ERP" />
+
+  <!-- ЗАМЕНИТЕ https://lenagon.github.io/frontend на адрес, где вы реально разместите файлы этого add-in -->
   <IconUrl DefaultValue="https://lenagon.github.io/frontend/assets/icon-erp-32.png" />
   <HighResolutionIconUrl DefaultValue="https://lenagon.github.io/frontend/assets/icon-erp-80.png" />
   <SupportUrl DefaultValue="https://lenagon.github.io/frontend" />
@@ -26,16 +28,15 @@
 
   <Requirements>
     <Sets>
-      <Set Name="Mailbox" MinVersion="1.1" />
+      <Set Name="Mailbox" MinVersion="1.5" />
     </Sets>
   </Requirements>
 
+  <!-- Запасной вариант для очень старых клиентов без поддержки кнопок-команд -->
   <FormSettings>
     <Form xsi:type="ItemRead">
-      
       <DesktopSettings>
         <SourceLocation DefaultValue="https://lenagon.github.io/frontend/fallback.html" />
-        <RequestedHeight>450</RequestedHeight>
       </DesktopSettings>
     </Form>
   </FormSettings>
@@ -50,7 +51,6 @@
   <DisableEntityHighlighting>false</DisableEntityHighlighting>
 
   <VersionOverrides xmlns="http://schemas.microsoft.com/office/mailappversionoverrides" xsi:type="VersionOverridesV1_0">
-
     <Requirements>
       <bt:Sets DefaultMinVersion="1.5">
         <bt:Set Name="Mailbox" />
@@ -59,17 +59,20 @@
 
     <Hosts>
       <Host xsi:type="MailHost">
-
-        <!-- Единственный корректный форм-фактор для Outlook Web -->
         <DesktopFormFactor>
 
           <FunctionFile resid="Commands.Url" />
 
-          <!-- READ -->
+          <!-- Группа кнопок на ленте, когда письмо ОТКРЫТО ДЛЯ ЧТЕНИЯ -->
           <ExtensionPoint xsi:type="MessageReadCommandSurface">
             <OfficeTab id="TabDefault">
               <Group id="SendToErpGroup.Read">
                 <Label resid="GroupLabel" />
+                <Icon>
+                  <bt:Image size="16" resid="Icon.Group.16" />
+                  <bt:Image size="32" resid="Icon.Group.32" />
+                  <bt:Image size="80" resid="Icon.Group.80" />
+                </Icon>
 
                 <Control xsi:type="Button" id="BtnSendToErp.Read">
                   <Label resid="Btn1.Label" />
@@ -139,11 +142,16 @@
             </OfficeTab>
           </ExtensionPoint>
 
-          <!-- COMPOSE -->
+          <!-- Та же группа кнопок, когда письмо СОЗДАЁТСЯ/РЕДАКТИРУЕТСЯ -->
           <ExtensionPoint xsi:type="MessageComposeCommandSurface">
             <OfficeTab id="TabDefault">
               <Group id="SendToErpGroup.Compose">
                 <Label resid="GroupLabel" />
+                <Icon>
+                  <bt:Image size="16" resid="Icon.Group.16" />
+                  <bt:Image size="32" resid="Icon.Group.32" />
+                  <bt:Image size="80" resid="Icon.Group.80" />
+                </Icon>
 
                 <Control xsi:type="Button" id="BtnSendToErp.Compose">
                   <Label resid="Btn1.Label" />
@@ -214,12 +222,15 @@
           </ExtensionPoint>
 
         </DesktopFormFactor>
-
       </Host>
     </Hosts>
 
     <Resources>
       <bt:Images>
+        <bt:Image id="Icon.Group.16" DefaultValue="https://lenagon.github.io/frontend/assets/icon-erp-16.png" />
+        <bt:Image id="Icon.Group.32" DefaultValue="https://lenagon.github.io/frontend/assets/icon-erp-32.png" />
+        <bt:Image id="Icon.Group.80" DefaultValue="https://lenagon.github.io/frontend/assets/icon-erp-80.png" />
+
         <bt:Image id="Icon.Btn1.16" DefaultValue="https://lenagon.github.io/frontend/assets/icon-erp-16.png" />
         <bt:Image id="Icon.Btn1.32" DefaultValue="https://lenagon.github.io/frontend/assets/icon-erp-32.png" />
         <bt:Image id="Icon.Btn1.80" DefaultValue="https://lenagon.github.io/frontend/assets/icon-erp-80.png" />
@@ -241,7 +252,7 @@
         <bt:Url id="Commands.Url" DefaultValue="https://lenagon.github.io/frontend/commands.html" />
       </bt:Urls>
 
-       <bt:ShortStrings>
+      <bt:ShortStrings>
         <bt:String id="GroupLabel" DefaultValue="SendToERP (Smadar)" />
         <bt:String id="Btn1.Label" DefaultValue="Send To ERP" />
         <bt:String id="Btn2.Label" DefaultValue="Send2ERP (Message)" />
@@ -256,6 +267,5 @@
         <bt:String id="Btn4.Tooltip" DefaultValue="Sending all attachments to ERP (currently this is a UI mockup)" />
       </bt:LongStrings>
     </Resources>
-
   </VersionOverrides>
 </OfficeApp>
