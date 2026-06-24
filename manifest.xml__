@@ -3,19 +3,17 @@
     xmlns="http://schemas.microsoft.com/office/appforoffice/1.1"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0"
+    xmlns:mailappor="http://schemas.microsoft.com/office/mailappversionoverrides/1.0"
     xsi:type="MailApp">
 
-  <!-- ЗАМЕНИТЕ на свой собственный GUID, если будете делать несколько версий/копий -->
   <Id>67ddd6ad-2824-4d7a-b54d-38975aea83c0</Id>
   <Version>1.0.0.1</Version>
-  <ProviderName>SPS</ProviderName>
+  <ProviderName>SPSr</ProviderName>
   <DefaultLocale>en-US</DefaultLocale>
   <DisplayName DefaultValue="SendToERPWeb" />
-  <Description DefaultValue="Send email attachments to ERP" />
-
-  <!-- ЗАМЕНИТЕ https://lenagon.github.io/frontend на адрес, где вы реально разместите файлы этого add-in -->
+  <Description DefaultValue="Send email attachments to ERP." />
   <IconUrl DefaultValue="https://lenagon.github.io/frontend/assets/icon-erp-32.png" />
-  <HighResIconUrl DefaultValue="https://lenagon.github.io/frontend/assets/icon-erp-80.png" />
+  <HighResolutionIconUrl DefaultValue="https://lenagon.github.io/frontend/assets/icon-erp-80.png" />
   <SupportUrl DefaultValue="https://lenagon.github.io/frontend" />
 
   <AppDomains>
@@ -23,20 +21,109 @@
   </AppDomains>
 
   <Hosts>
-    <Host Name="Mailbox" />
+    <Host xsi:type="MailHost">
+      <DesktopFormFactor>
+
+        <FunctionFile resid="Commands.Url"/>
+        <ExtensionPoint xsi:type="MessageReadCommandSurface">
+          <OfficeTab id="TabDefault">
+            <Group id="erpGroup">
+              <Label resid="GroupLabel"/>
+
+              
+              <!--Send to ERP Button -->
+              <Control xsi:type="Button" id="BtnSendToErp.Read">
+                <Label resid="Btn1.Label" />
+                <Supertip>
+                  <Title resid="Btn1.Label" />
+                  <Description resid="Btn1.Tooltip" />
+                </Supertip>
+                <Icon>
+                  <bt:Image size="16" resid="Icon.Btn1.16" />
+                  <bt:Image size="32" resid="Icon.Btn1.32" />
+                  <bt:Image size="80" resid="Icon.Btn1.80" />
+                </Icon>
+                <Action xsi:type="ExecuteFunction">
+                  <FunctionName>sendToErp</FunctionName>
+                </Action>
+              </Control>
+
+
+
+
+
+              <Control xsi:type="Button" id="btnSend">
+                <Label resid="Send.Label"/>
+                <Supertip>
+                  <Title resid="Send.Label"/>
+                  <Description resid="Send.Tooltip"/>
+                </Supertip>
+                <Icon>
+                    <bt:Image size="16" resid="Send.16"/>
+                    <bt:Image size="32" resid="Send.32"/>
+                    <bt:Image size="80" resid="Send.80"/>
+                </Icon>
+                <Action xsi:type="ExecuteFunction">
+                  <FunctionName>sendToErp</FunctionName>
+                </Action>
+              </Control>
+
+                <!-- Archive Button -->
+                <Control xsi:type="Button" id="btnArchive">
+                  <Label resid="Archive.Label"/>
+                  <Supertip>
+                    <Title resid="Archive.Label"/>
+                    <Description resid="Archive.Tooltip"/>
+                  </Supertip>
+                  <Icon>
+                    	<bt:Image size="16" resid="Archive.16"/>
+  			              <bt:Image size="32" resid="Archive.32"/>
+  			              <bt:Image size="80" resid="Archive.80"/>
+
+                  </Icon>
+                  <Action xsi:type="ExecuteFunction">
+                    <FunctionName>archiveDocument</FunctionName>
+                  </Action>
+                </Control>
+
+                <!-- Settings Button -->
+                <Control xsi:type="Button" id="btnSettings">
+                  <Label resid="Settings.Label"/>
+                  <Supertip>
+                    <Title resid="Settings.Label"/>
+                    <Description resid="Settings.Tooltip"/>
+                  </Supertip>
+                  <Icon>
+                    	<bt:Image size="16" resid="Settings.16"/>
+  			              <bt:Image size="32" resid="Settings.32"/>
+  			              <bt:Image size="80" resid="Settings.80"/>
+
+                  </Icon>
+                  <Action xsi:type="ShowTaskpane">
+                    <SourceLocation resid="Settings.Url"/>
+                  </Action>
+                </Control>
+
+              </Group>
+            </OfficeTab>
+          </ExtensionPoint>
+
+        </DesktopFormFactor>
+      </Host>
   </Hosts>
 
   <Requirements>
     <Sets>
-      <Set Name="Mailbox" MinVersion="1.5" />
+      <Set Name="Mailbox" MinVersion="1.3"/>
     </Sets>
   </Requirements>
 
-  <!-- Запасной вариант для очень старых клиентов без поддержки кнопок-команд -->
   <FormSettings>
     <Form xsi:type="ItemRead">
+      
       <DesktopSettings>
         <SourceLocation DefaultValue="https://lenagon.github.io/frontend/fallback.html" />
+        <RequestedHeight>450</RequestedHeight>
       </DesktopSettings>
     </Form>
   </FormSettings>
@@ -51,6 +138,7 @@
   <DisableEntityHighlighting>false</DisableEntityHighlighting>
 
   <VersionOverrides xmlns="http://schemas.microsoft.com/office/mailappversionoverrides" xsi:type="VersionOverridesV1_0">
+
     <Requirements>
       <bt:Sets DefaultMinVersion="1.5">
         <bt:Set Name="Mailbox" />
@@ -59,21 +147,19 @@
 
     <Hosts>
       <Host xsi:type="MailHost">
+
+        <!-- Единственный корректный форм-фактор для Outlook Web -->
         <DesktopFormFactor>
 
           <FunctionFile resid="Commands.Url" />
 
-          <!-- Группа кнопок на ленте, когда письмо ОТКРЫТО ДЛЯ ЧТЕНИЯ -->
+          <!-- READ -->
           <ExtensionPoint xsi:type="MessageReadCommandSurface">
             <OfficeTab id="TabDefault">
               <Group id="SendToErpGroup.Read">
                 <Label resid="GroupLabel" />
-                <Icon>
-                  <bt:Image size="16" resid="Icon.Group.16" />
-                  <bt:Image size="32" resid="Icon.Group.32" />
-                  <bt:Image size="80" resid="Icon.Group.80" />
-                </Icon>
 
+                <!--Send to ERP Button -->
                 <Control xsi:type="Button" id="BtnSendToErp.Read">
                   <Label resid="Btn1.Label" />
                   <Supertip>
@@ -142,16 +228,11 @@
             </OfficeTab>
           </ExtensionPoint>
 
-          <!-- Та же группа кнопок, когда письмо СОЗДАЁТСЯ/РЕДАКТИРУЕТСЯ -->
+          <!-- COMPOSE -->
           <ExtensionPoint xsi:type="MessageComposeCommandSurface">
             <OfficeTab id="TabDefault">
               <Group id="SendToErpGroup.Compose">
                 <Label resid="GroupLabel" />
-                <Icon>
-                  <bt:Image size="16" resid="Icon.Group.16" />
-                  <bt:Image size="32" resid="Icon.Group.32" />
-                  <bt:Image size="80" resid="Icon.Group.80" />
-                </Icon>
 
                 <Control xsi:type="Button" id="BtnSendToErp.Compose">
                   <Label resid="Btn1.Label" />
@@ -222,15 +303,12 @@
           </ExtensionPoint>
 
         </DesktopFormFactor>
+
       </Host>
     </Hosts>
 
     <Resources>
       <bt:Images>
-        <bt:Image id="Icon.Group.16" DefaultValue="https://lenagon.github.io/frontend/assets/icon-erp-16.png" />
-        <bt:Image id="Icon.Group.32" DefaultValue="https://lenagon.github.io/frontend/assets/icon-erp-32.png" />
-        <bt:Image id="Icon.Group.80" DefaultValue="https://lenagon.github.io/frontend/assets/icon-erp-80.png" />
-
         <bt:Image id="Icon.Btn1.16" DefaultValue="https://lenagon.github.io/frontend/assets/icon-erp-16.png" />
         <bt:Image id="Icon.Btn1.32" DefaultValue="https://lenagon.github.io/frontend/assets/icon-erp-32.png" />
         <bt:Image id="Icon.Btn1.80" DefaultValue="https://lenagon.github.io/frontend/assets/icon-erp-80.png" />
@@ -261,11 +339,12 @@
       </bt:ShortStrings>
 
       <bt:LongStrings>
-        <bt:String id="Btn1.Tooltip" DefaultValue="Sending attachments to ERP via settings dialog" />
-        <bt:String id="Btn2.Tooltip" DefaultValue="Sending message text to ERP automatically" />
-        <bt:String id="Btn3.Tooltip" DefaultValue="Sending selected email attachments to ERP" />
-        <bt:String id="Btn4.Tooltip" DefaultValue="Sending all attachments to ERP (currently this is a UI mockup)" />
+        <bt:String id="Btn1.Tooltip" DefaultValue="Отправить письмо в ERP" />
+        <bt:String id="Btn2.Tooltip" DefaultValue="Отправить текст письма в ERP" />
+        <bt:String id="Btn3.Tooltip" DefaultValue="Отправить вложения письма в ERP" />
+        <bt:String id="Btn4.Tooltip" DefaultValue="Отправить все вложения в ERP" />
       </bt:LongStrings>
     </Resources>
+
   </VersionOverrides>
 </OfficeApp>

@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <OfficeApp
     xmlns="http://schemas.microsoft.com/office/appforoffice/1.1"
+    xmlns:mailappor="http://schemas.microsoft.com/office/mailappversionoverrides/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0"
     xsi:type="MailApp">
 
   <!-- ЗАМЕНИТЕ на свой собственный GUID, если будете делать несколько версий/копий -->
   <Id>67ddd6ad-2824-4d7a-b54d-38975aea83c0</Id>
-  <Version>1.0.0.1</Version>
-  <ProviderName>SPS</ProviderName>
-  <DefaultLocale>en-US</DefaultLocale>
-  <DisplayName DefaultValue="SendToERPWeb" />
-  <Description DefaultValue="Send email attachments to ERP" />
+  <Version>1.0.0.0</Version>
+  <ProviderName>Smadar</ProviderName>
+  <DefaultLocale>ru-RU</DefaultLocale>
+  <DisplayName DefaultValue="SendToERP" />
+  <Description DefaultValue="Кнопки отправки писем и вложений в ERP (макет интерфейса)" />
 
   <!-- ЗАМЕНИТЕ https://lenagon.github.io/frontend на адрес, где вы реально разместите файлы этого add-in -->
   <IconUrl DefaultValue="https://lenagon.github.io/frontend/assets/icon-erp-32.png" />
@@ -28,18 +29,11 @@
 
   <Requirements>
     <Sets>
-      <Set Name="Mailbox" MinVersion="1.5" />
+      <Set Name="Mailbox"/>
     </Sets>
   </Requirements>
 
-  <!-- Запасной вариант для очень старых клиентов без поддержки кнопок-команд -->
-  <FormSettings>
-    <Form xsi:type="ItemRead">
-      <DesktopSettings>
-        <SourceLocation DefaultValue="https://lenagon.github.io/frontend/fallback.html" />
-      </DesktopSettings>
-    </Form>
-  </FormSettings>
+ 
 
   <Permissions>ReadWriteItem</Permissions>
 
@@ -50,7 +44,8 @@
 
   <DisableEntityHighlighting>false</DisableEntityHighlighting>
 
-  <VersionOverrides xmlns="http://schemas.microsoft.com/office/mailappversionoverrides" xsi:type="VersionOverridesV1_0">
+  <VersionOverrides xmlns="http://schemas.microsoft.com/office/mailappversionoverrides/1.0"
+    xsi:type="VersionOverridesV1_0">
     <Requirements>
       <bt:Sets DefaultMinVersion="1.5">
         <bt:Set Name="Mailbox" />
@@ -261,10 +256,10 @@
       </bt:ShortStrings>
 
       <bt:LongStrings>
-        <bt:String id="Btn1.Tooltip" DefaultValue="Sending attachments to ERP via settings dialog" />
-        <bt:String id="Btn2.Tooltip" DefaultValue="Sending message text to ERP automatically" />
-        <bt:String id="Btn3.Tooltip" DefaultValue="Sending selected email attachments to ERP" />
-        <bt:String id="Btn4.Tooltip" DefaultValue="Sending all attachments to ERP (currently this is a UI mockup)" />
+        <bt:String id="Btn1.Tooltip" DefaultValue="Отправить письмо в ERP (сейчас это макет интерфейса)" />
+        <bt:String id="Btn2.Tooltip" DefaultValue="Отправить текст письма в ERP (сейчас это макет интерфейса)" />
+        <bt:String id="Btn3.Tooltip" DefaultValue="Отправить вложения письма в ERP (сейчас это макет интерфейса)" />
+        <bt:String id="Btn4.Tooltip" DefaultValue="Отправить все вложения в ERP (сейчас это макет интерфейса)" />
       </bt:LongStrings>
     </Resources>
   </VersionOverrides>
